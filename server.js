@@ -1,13 +1,24 @@
 #!/bin/env node
 
+var self = {};
+self.host = process.env.OPENSHIFT_NODEJS_IP;
+self.port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+
+if (typeof self.ipaddress === "undefined") {
+    //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
+    //  allows us to run/test the app locally.
+    console.warn('No OPENSHIFT_NODEJS_IP var, using 127.0.0.1');
+    self.host = "127.0.0.1";
+};
+
 var WebSocketServer = require('ws').Server;
 var qs = require('url');
 var log = console.log;
-var wss = new WebSocketServer({host: '127.0.0.1', port: 8080 });
+var wss = new WebSocketServer(self);
 var clients = {};
 
 wss.on('connection', function connection(ws) {
-    var queryParams = qs.parse(ws.upgradeReq.url, true).query;
+  var queryParams = qs.parse(ws.upgradeReq.url, true).query;
   var sessionKey = queryParams['skey'];
   var isHost = false;
   var type = 'client'
