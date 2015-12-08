@@ -3,7 +3,7 @@
 var WebSocketServer = require('ws').Server;
 var qs = require('url');
 var log = console.log;
-var wss = new WebSocketServer({host: '0.0.0.0', port: 8080 });
+var wss = new WebSocketServer({host: '127.0.0.1', port: 8080 });
 var clients = {};
 
 wss.on('connection', function connection(ws) {
