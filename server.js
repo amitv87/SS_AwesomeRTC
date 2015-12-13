@@ -36,6 +36,8 @@ wss.on('connection', function connection(ws) {
         endConn(clients[sessionKey].host);
       clients[sessionKey].host = ws;
     }
+    else
+      return endConn(ws);
   }
   else
     return endConn(ws);
