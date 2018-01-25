@@ -4,7 +4,7 @@ var self = {};
 self.host = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
 self.port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
-var WebSocketServer = require('ws').Server;
+var WebSocketServer = require('uws').Server;
 var qs = require('url');
 var log = console.log;
 var wss = new WebSocketServer(self);
